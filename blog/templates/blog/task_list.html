@@ -1,18 +1,34 @@
 {% extends 'blog/base.html' %}
+
 {% block title %}Task List{% endblock %}
 
 {% block content %}
-<h1>Task List</h1>
-<ul>
-    {% for task in tasks %}
-        
-            <strong>Title:</strong> <a href="{% url 'task_detail' task.pk %}">{{ task.title }}</a><br>
-            <strong>Priority:</strong> {{ task.get_priority_choice_display }}<br>
-            <strong>Status:</strong> {{ task.get_status_choice_display }}
-     
-        <hr>
-    {% empty %}
-        <li>No tasks found</li>
-    {% endfor %}
-</ul>
+    <div style="margin-left: 20px;"> <!-- Добавляем отступ слева для задач -->
+        <h1>Task List</h1>
+        {% for task in tasks %}
+            <div style="margin-bottom: 20px;"> <!-- Добавляем отступ снизу для каждой задачи -->
+                <strong>Title:</strong> <a href="{% url 'task_detail' task.pk %}"> {{ task.title }}</a><br>
+                <!-- Отображение приоритета с использованием кругов -->
+                {% if task.priority_choice == 'low' %}
+                    <span style="background-color: green; border-radius: 50%; display: inline-block; width: 10px; height: 10px;"></span>
+                {% elif task.priority_choice == 'medium' %}
+                    <span style="background-color: blue; border-radius: 50%; display: inline-block; width: 10px; height: 10px;"></span>
+                {% elif task.priority_choice == 'high' %}
+                    <span style="background-color: red; border-radius: 50%; display: inline-block; width: 10px; height: 10px;"></span>
+                {% endif %}
+                {{ task.get_priority_choice_display }}<br>
+                <!-- Отображение статуса с использованием кругов -->
+                {% if task.status_choice == 'done' %}
+                    <span style="background-color: green; border-radius: 50%; display: inline-block; width: 10px; height: 10px;"></span>
+                {% elif task.status_choice == 'postponed' %}
+                    <span style="background-color: yellow; border-radius: 50%; display: inline-block; width: 10px; height: 10px;"></span>
+                {% elif task.status_choice == 'cancelled' %}
+                    <span style="background-color: red; border-radius: 50%; display: inline-block; width: 10px; height: 10px;"></span>
+                {% endif %}
+                {{ task.get_status_choice_display }}
+            </div>
+        {% empty %}
+            <p>No tasks found</p>
+        {% endfor %}
+    </div>
 {% endblock %}

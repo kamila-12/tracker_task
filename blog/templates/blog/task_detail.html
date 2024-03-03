@@ -3,9 +3,32 @@
 {% block title %}Task Detail{% endblock %}
 
 {% block content %}
+<div style="margin-left: 20px;"> 
     <h1>Task Detail</h1>
     <p><strong>Title:</strong> {{ task.title }}</p>
-    <p><strong>Priority:</strong> {{ task.get_priority_choice_display }}</p>
-    <p><strong>Status:</strong> {{ task.get_status_choice_display }}</p>
+    
+    <!-- Отображение приоритета с использованием цветных кружков -->
+    <p><strong>Priority:</strong> 
+        {% if task.priority_choice == 'low' %}
+            <span style="background-color: green; border-radius: 50%; display: inline-block; width: 15px; height: 15px; margin-right: 5px;"></span> {{ task.get_priority_choice_display }}
+        {% elif task.priority_choice == 'medium' %}
+            <span style="background-color: blue; border-radius: 50%; display: inline-block; width: 15px; height: 15px; margin-right: 5px;"></span> {{ task.get_priority_choice_display }}
+        {% elif task.priority_choice == 'high' %}
+            <span style="background-color: red; border-radius: 50%; display: inline-block; width: 15px; height: 15px; margin-right: 5px;"></span> {{ task.get_priority_choice_display }}
+        {% endif %}
+    </p>
+    
+    <!-- Отображение статуса с использованием цветных кружков -->
+    <p><strong>Status:</strong> 
+        {% if task.status_choice == 'done' %}
+            <span style="background-color: green; border-radius: 50%; display: inline-block; width: 15px; height: 15px; margin-right: 5px;"></span> {{ task.get_status_choice_display }}
+        {% elif task.status_choice == 'postponed' %}
+            <span style="background-color: yellow; border-radius: 50%; display: inline-block; width: 15px; height: 15px; margin-right: 5px;"></span> {{ task.get_status_choice_display }}
+        {% elif task.status_choice == 'cancelled' %}
+            <span style="background-color: red; border-radius: 50%; display: inline-block; width: 15px; height: 15px; margin-right: 5px;"></span> {{ task.get_status_choice_display }}
+        {% endif %}
+    </p>
+    
     <a href="{{ edit_url }}">Редактировать</a>
+</div>
 {% endblock %}
