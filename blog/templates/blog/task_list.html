@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+{% block title %}Task List{% endblock %}
+
+{% block content %}
+<h1>Task List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Priority</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.title }}</td>
+                <td>{{ task.get_priority_choice_display }}</td>
+                <td>{{ task.get_status_choice_display }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
