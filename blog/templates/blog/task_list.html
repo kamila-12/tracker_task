@@ -3,22 +3,16 @@
 
 {% block content %}
 <h1>Task List</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Priority</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for task in tasks %}
-            <tr>
-                <td>{{ task.title }}</td>
-                <td>{{ task.get_priority_choice_display }}</td>
-                <td>{{ task.get_status_choice_display }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<ul>
+    {% for task in tasks %}
+        
+            <strong>Title:</strong> <a href="{% url 'task_detail' task.pk %}">{{ task.title }}</a><br>
+            <strong>Priority:</strong> {{ task.get_priority_choice_display }}<br>
+            <strong>Status:</strong> {{ task.get_status_choice_display }}
+     
+        <hr>
+    {% empty %}
+        <li>No tasks found</li>
+    {% endfor %}
+</ul>
 {% endblock %}
