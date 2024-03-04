@@ -30,5 +30,8 @@
         {% empty %}
             <p>No tasks found</p>
         {% endfor %}
+    
     </div>
+    <a href="{% url 'task_new' %}" class="btn btn-primary">Create New Task</a>
+
 {% endblock %}

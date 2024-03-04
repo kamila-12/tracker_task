@@ -1,0 +1,30 @@
+.task-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.priority-circle {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.status-circle {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.low-priority { background-color: green; }
+.medium-priority { background-color: blue; }
+.high-priority { background-color: red; }
+
+.done-status { background-color: green; }
+.postponed-status { background-color: yellow; }
+.cancelled-status { background-color: red; }
