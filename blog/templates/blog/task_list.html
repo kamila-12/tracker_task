@@ -5,32 +5,46 @@
 {% block content %}
     <div style="margin-left: 20px;"> <!-- Добавляем отступ слева для задач -->
         <h1>Task List</h1>
-        {% for task in tasks %}
-            <div style="margin-bottom: 20px;"> <!-- Добавляем отступ снизу для каждой задачи -->
-                <strong>Title:</strong> <a href="{% url 'task_detail' task.pk %}"> {{ task.title }}</a><br>
-                <!-- Отображение приоритета с использованием кругов -->
-                {% if task.priority_choice == 'low' %}
-                    <span style="background-color: green; border-radius: 50%; display: inline-block; width: 10px; height: 10px;"></span>
-                {% elif task.priority_choice == 'medium' %}
-                    <span style="background-color: blue; border-radius: 50%; display: inline-block; width: 10px; height: 10px;"></span>
-                {% elif task.priority_choice == 'high' %}
-                    <span style="background-color: red; border-radius: 50%; display: inline-block; width: 10px; height: 10px;"></span>
-                {% endif %}
-                {{ task.get_priority_choice_display }}<br>
-                <!-- Отображение статуса с использованием кругов -->
-                {% if task.status_choice == 'done' %}
-                    <span style="background-color: green; border-radius: 50%; display: inline-block; width: 10px; height: 10px;"></span>
-                {% elif task.status_choice == 'postponed' %}
-                    <span style="background-color: yellow; border-radius: 50%; display: inline-block; width: 10px; height: 10px;"></span>
-                {% elif task.status_choice == 'cancelled' %}
-                    <span style="background-color: red; border-radius: 50%; display: inline-block; width: 10px; height: 10px;"></span>
-                {% endif %}
-                {{ task.get_status_choice_display }}
-            </div>
-        {% empty %}
-            <p>No tasks found</p>
-        {% endfor %}
-    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Number</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ forloop.counter }}</td> <!-- Номер задачи -->
+                    <td><a href="{% url 'task_detail' task.pk %}">{{ task.title }}</a></td> <!-- Заголовок задачи -->
+                    <td>
+                        {% if task.priority_choice == 'low' %}
+                            <span style="background-color: green; border-radius: 50%; display: inline-block; width: 10px; height: 10px;"></span>
+                        {% elif task.priority_choice == 'medium' %}
+                            <span style="background-color: blue; border-radius: 50%; display: inline-block; width: 10px; height: 10px;"></span>
+                        {% elif task.priority_choice == 'high' %}
+                            <span style="background-color: red; border-radius: 50%; display: inline-block; width: 10px; height: 10px;"></span>
+                        {% endif %}
+                    </td> <!-- Приоритет задачи -->
+                    <td>
+                        {% if task.status_choice == 'done' %}
+                            <span style="background-color: green; border-radius: 50%; display: inline-block; width: 10px; height: 10px;"></span>
+                        {% elif task.status_choice == 'postponed' %}
+                            <span style="background-color: yellow; border-radius: 50%; display: inline-block; width: 10px; height: 10px;"></span>
+                        {% elif task.status_choice == 'cancelled' %}
+                            <span style="background-color: red; border-radius: 50%; display: inline-block; width: 10px; height: 10px;"></span>
+                        {% endif %}
+                    </td> <!-- Статус задачи -->
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No tasks found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
     <a href="{% url 'task_new' %}" class="btn btn-primary">Create New Task</a>
 
