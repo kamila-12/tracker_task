@@ -30,5 +30,6 @@
     </p>
     
     <a href="{{ edit_url }}">Редактировать</a>
+    <a class="btn btn-danger" href="{% url 'task_delete' pk=task.pk %}" role="button">Удалить</a>
 </div>
 {% endblock %}

@@ -46,6 +46,9 @@
             </tbody>
         </table>
     </div>
-    <a href="{% url 'task_new' %}" class="btn btn-primary">Create New Task</a>
+    {% comment %} <a href="{% url 'task_new' %}" >Create New Task</a> {% endcomment %}
+    <a class="btn btn-primary" href="{% url 'task_new' %}" role="button">Create New Task</a>
+
+    
 
 {% endblock %}
